@@ -1,0 +1,6 @@
+PATCH http://localhost:3000/notes/2
+Content-Type: application/json
+
+{
+  "noteName": "New note name 3"
+}
