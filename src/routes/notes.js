@@ -28,7 +28,7 @@ router.get("/stats", (req, res) => {
     res.send(stats);
 });
 router.post("/", (req, res, next) => {
-    const newNote = (0, add_one_note_1.addOneNote)(req.note);
+    const newNote = (0, add_one_note_1.addOneNote)(req.body);
     res.status(201).send(newNote);
 });
 router.get("/:id", (req, res) => {

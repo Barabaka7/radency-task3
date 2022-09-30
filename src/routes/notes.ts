@@ -36,7 +36,7 @@ router.get("/stats", (req: Request, res: Response) => {
 });
 
 router.post("/", (req: Request, res: Response, next: NextFunction) => {
-  const newNote = addOneNote(req.note!);
+  const newNote = addOneNote(req.body);
   res.status(201).send(newNote);
 });
 
