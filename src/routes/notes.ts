@@ -5,6 +5,8 @@ import { deleteOneNote } from "../services/notes/delete-one-note";
 import { addOneNote } from "../services/notes/add-one-note";
 import { NoteUpdateRequest, updateNote } from "../services/notes/update-note";
 import { getStats } from "../services/notes/get-stats";
+import { noteSchema, notePatchSchema } from "../services/note";
+import { validateBody, validateBodyPatch } from "../helpers/validate";
 
 const router = Router();
 
@@ -35,10 +37,18 @@ router.get("/stats", (req: Request, res: Response) => {
   res.send(stats);
 });
 
-router.post("/", (req: Request, res: Response, next: NextFunction) => {
-  const newNote = addOneNote(req.body);
-  res.status(201).send(newNote);
-});
+router.post(
+  "/",
+  validateBody(noteSchema),
+  (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const newNote = addOneNote(req.body);
+      res.status(201).send(newNote);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 router.get("/:id", (req: Request<WithId>, res: Response) => {
   res.send(req.note);
@@ -51,6 +61,7 @@ router.delete("/:id", (req: Request, res: Response) => {
 
 router.patch(
   "/:id",
+  validateBody(notePatchSchema),
   (req: Request<WithId, any, NoteUpdateRequest>, res: Response) => {
     const updatedNote = updateNote(req.note!, req.body);
     res.send(updatedNote);

@@ -54,8 +54,10 @@ class NotesRepository {
 }
 
 export const notesRepository = new NotesRepository(
-  data.map((note) => ({
-    ...note,
-    creationDate: new Date(note.creationDate),
-  }))
+  data.map((note) =>
+    noteSchema.cast({
+      ...note,
+      creationDate: new Date(note.creationDate),
+    })
+  )
 );

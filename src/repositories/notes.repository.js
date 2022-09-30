@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.notesRepository = void 0;
+const note_1 = require("../services/note");
 const data_json_1 = __importDefault(require("../data.json"));
 class NotesRepository {
     constructor(notes) {
@@ -45,4 +46,4 @@ class NotesRepository {
         return notesStats;
     }
 }
-exports.notesRepository = new NotesRepository(data_json_1.default.map((note) => (Object.assign(Object.assign({}, note), { creationDate: new Date(note.creationDate) }))));
+exports.notesRepository = new NotesRepository(data_json_1.default.map((note) => note_1.noteSchema.cast(Object.assign(Object.assign({}, note), { creationDate: new Date(note.creationDate) }))));
