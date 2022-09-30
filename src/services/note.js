@@ -37,9 +37,54 @@ exports.noteSchema = yup.object().shape({
         .required(),
 });
 exports.notePatchSchema = yup.object().shape({
-    noteName: yup.string().strict(true),
-    category: yup.string().strict(true),
-    noteContent: yup.string().strict(true),
-    isArchived: yup.boolean().strict(true),
-    creationDate: yup.date().strict(true),
+    noteName: yup
+        .string()
+        .strict(true)
+        .test("oneOfRequired", "One of noteName, category, noteContent, isArchived or creationDate must be entered", function (item) {
+        return (this.parent.noteName ||
+            this.parent.category ||
+            this.parent.noteContent ||
+            this.parent.isArchived ||
+            this.parent.creationDate);
+    }),
+    category: yup
+        .string()
+        .strict(true)
+        .test("oneOfRequired", "One of noteName, category, noteContent, isArchived or creationDate must be entered", function (item) {
+        return (this.parent.noteName ||
+            this.parent.category ||
+            this.parent.noteContent ||
+            this.parent.isArchived ||
+            this.parent.creationDate);
+    }),
+    noteContent: yup
+        .string()
+        .strict(true)
+        .test("oneOfRequired", "One of noteName, category, noteContent, isArchived or creationDate must be entered", function (item) {
+        return (this.parent.noteName ||
+            this.parent.category ||
+            this.parent.noteContent ||
+            this.parent.isArchived ||
+            this.parent.creationDate);
+    }),
+    isArchived: yup
+        .boolean()
+        .strict(true)
+        .test("oneOfRequired", "One of noteName, category, noteContent, isArchived or creationDate must be entered", function (item) {
+        return (this.parent.noteName ||
+            this.parent.category ||
+            this.parent.noteContent ||
+            this.parent.isArchived ||
+            this.parent.creationDate);
+    }),
+    creationDate: yup
+        .date()
+        .strict(true)
+        .test("oneOfRequired", "One of noteName, category, noteContent, isArchived or creationDate must be entered", function (item) {
+        return (this.parent.noteName ||
+            this.parent.category ||
+            this.parent.noteContent ||
+            this.parent.isArchived ||
+            this.parent.creationDate);
+    }),
 });

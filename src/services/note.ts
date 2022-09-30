@@ -13,11 +13,86 @@ export let noteSchema = yup.object().shape({
 });
 
 export let notePatchSchema = yup.object().shape({
-  noteName: yup.string().strict(true) as yup.StringSchema<string>,
-  category: yup.string().strict(true) as yup.StringSchema<string>,
-  noteContent: yup.string().strict(true) as yup.StringSchema<string>,
-  isArchived: yup.boolean().strict(true) as yup.BooleanSchema<boolean>,
-  creationDate: yup.date().strict(true) as yup.DateSchema<Date>,
+  noteName: yup
+    .string()
+    .strict(true)
+    .test(
+      "oneOfRequired",
+      "One of noteName, category, noteContent, isArchived or creationDate must be entered",
+      function (item) {
+        return (
+          this.parent.noteName ||
+          this.parent.category ||
+          this.parent.noteContent ||
+          this.parent.isArchived ||
+          this.parent.creationDate
+        );
+      }
+    ) as yup.StringSchema<string>,
+  category: yup
+    .string()
+    .strict(true)
+    .test(
+      "oneOfRequired",
+      "One of noteName, category, noteContent, isArchived or creationDate must be entered",
+      function (item) {
+        return (
+          this.parent.noteName ||
+          this.parent.category ||
+          this.parent.noteContent ||
+          this.parent.isArchived ||
+          this.parent.creationDate
+        );
+      }
+    ) as yup.StringSchema<string>,
+  noteContent: yup
+    .string()
+    .strict(true)
+    .test(
+      "oneOfRequired",
+      "One of noteName, category, noteContent, isArchived or creationDate must be entered",
+      function (item) {
+        return (
+          this.parent.noteName ||
+          this.parent.category ||
+          this.parent.noteContent ||
+          this.parent.isArchived ||
+          this.parent.creationDate
+        );
+      }
+    ) as yup.StringSchema<string>,
+  isArchived: yup
+    .boolean()
+    .strict(true)
+    .test(
+      "oneOfRequired",
+      "One of noteName, category, noteContent, isArchived or creationDate must be entered",
+      function (item) {
+        return (
+          this.parent.noteName ||
+          this.parent.category ||
+          this.parent.noteContent ||
+          this.parent.isArchived ||
+          this.parent.creationDate
+        );
+      }
+    ) as yup.BooleanSchema<boolean>,
+  creationDate: yup
+    .date()
+    .strict(true)
+    .test(
+      "oneOfRequired",
+      "One of noteName, category, noteContent, isArchived or creationDate must be entered",
+      function (item) {
+        return (
+          this.parent.noteName ||
+          this.parent.category ||
+          this.parent.noteContent ||
+          this.parent.isArchived ||
+          this.parent.creationDate
+        );
+      }
+    ) as yup.DateSchema<Date>,
 });
 
 export interface Note extends yup.InferType<typeof noteSchema> {}
