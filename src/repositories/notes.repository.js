@@ -13,20 +13,36 @@ class NotesRepository {
         return this.notes;
     }
     findOne(id) {
-        return this.notes.find(note => note.id === id) || null;
+        return this.notes.find((note) => note.id === id) || null;
     }
     save(note) {
         const index = this.notes.findIndex(({ id }) => note.id === id);
-        if (index >= 0) {
+        if (index !== -1) {
             this.notes[index] = note;
         }
         this.notes.push(note);
     }
-    delete(id) {
-        const indexToDelete = this.notes.findIndex(note => note.id === id);
+    deleteOne(id) {
+        const indexToDelete = this.notes.findIndex((note) => note.id === id);
         if (indexToDelete >= 0) {
             this.notes.splice(indexToDelete, 1);
         }
     }
+    makeNotesStats() {
+        let notesStats = [];
+        let categories = [
+            ...new Set(this.notes.map(({ category }) => category)),
+        ];
+        categories.forEach((cat) => {
+            let quantityAct = this.notes.filter((note) => note.category === cat && note.isArchived === false).length;
+            let quantityArch = this.notes.filter((note) => note.category === cat && note.isArchived === true).length;
+            notesStats.push({
+                category: cat,
+                quantityActive: quantityAct,
+                quantityArchived: quantityArch,
+            });
+        });
+        return notesStats;
+    }
 }
-exports.notesRepository = new NotesRepository(data_json_1.default.map(note => (Object.assign(Object.assign({}, note), { creationDate: new Date(note.creationDate) }))));
+exports.notesRepository = new NotesRepository(data_json_1.default.map((note) => (Object.assign(Object.assign({}, note), { creationDate: new Date(note.creationDate) }))));
